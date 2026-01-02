@@ -6,11 +6,9 @@ import {
   Calendar, 
   Plus, 
   LayoutDashboard, 
-  MessageSquare, 
   Settings,
   HelpCircle,
   CheckCircle2,
-  MousePointer2,
   Monitor,
   UserPlus
 } from 'lucide-react';
@@ -53,13 +51,6 @@ const HelpGuide: React.FC = () => {
       content: "'대시보드' 메뉴를 누르면 이번 달에 총 몇 팀이 왔는지, 어떤 방이 인기가 제일 많은지 그래프로 보여줍니다.",
       icon: <LayoutDashboard size={80} className="text-purple-600" />,
       tips: ["숫자를 누르면 그 손님들 명단이 쫙 나옵니다.", "저번 달보다 잘했는지 한눈에 비교해보세요."]
-    },
-    {
-      title: "5단계: AI 비서에게 물어보기",
-      subtitle: "모르는 건 채팅으로 물어보세요.",
-      content: "'AI 비서' 메뉴는 똑똑한 로봇이 답을 해주는 곳입니다. '환영 인사 문구 써줘'라고 하면 알아서 글을 써줍니다.",
-      icon: <MessageSquare size={80} className="text-indigo-500" />,
-      tips: ["문자 메시지 보내기 귀찮을 때 이용해보세요.", "궁금한 건 무엇이든 물어보셔도 됩니다."]
     }
   ];
 
@@ -73,7 +64,6 @@ const HelpGuide: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto h-[700px] flex flex-col bg-white rounded-[40px] shadow-2xl border-8 border-slate-100 overflow-hidden relative">
-      {/* PPT 슬라이드 본체 */}
       <div className="flex-1 p-12 flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in zoom-in duration-500">
         <div className="p-8 bg-slate-50 rounded-[40px] shadow-inner">
           {slides[currentSlide].icon}
@@ -102,7 +92,6 @@ const HelpGuide: React.FC = () => {
         </div>
       </div>
 
-      {/* 하단 네비게이션 */}
       <div className="p-8 bg-slate-900 flex items-center justify-between">
         <button 
           onClick={prevSlide}
@@ -131,7 +120,6 @@ const HelpGuide: React.FC = () => {
         </button>
       </div>
 
-      {/* 페이지 표시 */}
       <div className="absolute top-8 right-12 bg-slate-100 px-6 py-2 rounded-full font-black text-slate-400 text-lg">
         {currentSlide + 1} / {slides.length}
       </div>

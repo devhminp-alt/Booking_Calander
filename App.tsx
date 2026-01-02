@@ -1,13 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, Plus, Users, LayoutDashboard, MessageSquare, ChevronLeft, ChevronRight, Settings, Grid3X3, HelpCircle, Database } from 'lucide-react';
+import { Calendar, Plus, Users, LayoutDashboard, ChevronLeft, ChevronRight, Settings, Grid3X3, HelpCircle, Database } from 'lucide-react';
 import { ROOMS, INITIAL_BOOKINGS, INITIAL_SERVICES } from './constants';
 import { Booking, BookingStatus, Room, ServiceDefinition } from './types';
 import GuesthouseCalendar from './components/GuesthouseCalendar';
 import SimpleGridCalendar from './components/SimpleGridCalendar';
 import BookingModal from './components/BookingModal';
 import DashboardStats from './components/DashboardStats';
-import GeminiAssistant from './components/GeminiAssistant';
 import RoomSettings from './components/RoomSettings';
 import HelpGuide from './components/HelpGuide';
 import TechnicalSpec from './components/TechnicalSpec';
@@ -25,7 +24,7 @@ const App: React.FC = () => {
   const [rooms, setRooms] = useState<Room[]>(ROOMS);
   const [services, setServices] = useState<ServiceDefinition[]>(INITIAL_SERVICES);
   const [bookings, setBookings] = useState<Booking[]>(INITIAL_BOOKINGS);
-  const [view, setView] = useState<'calendar' | 'grid-calendar' | 'dashboard' | 'assistant' | 'settings' | 'guide' | 'spec'>('calendar');
+  const [view, setView] = useState<'calendar' | 'grid-calendar' | 'dashboard' | 'settings' | 'guide' | 'spec'>('calendar');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingBooking, setEditingBooking] = useState<Partial<Booking> | undefined>(undefined);
@@ -178,13 +177,6 @@ const App: React.FC = () => {
             <Database size={22} />
             <span className="text-base">SQL 데이터 명세</span>
           </button>
-          <button 
-            onClick={() => setView('assistant')}
-            className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all ${view === 'assistant' ? 'bg-indigo-50 text-indigo-700 font-black' : 'text-slate-600 hover:bg-slate-50 font-bold'}`}
-          >
-            <MessageSquare size={22} />
-            <span className="text-base">AI 비서</span>
-          </button>
 
           <div className="px-3 mt-8 mb-3">
             <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Support</p>
@@ -216,7 +208,7 @@ const App: React.FC = () => {
         <header className="h-24 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-20">
           <div className="flex items-center gap-8">
             <h2 className="text-2xl font-black text-slate-800 tracking-tight">
-              {view === 'calendar' ? '월간 현황 (Timeline)' : view === 'grid-calendar' ? '월간 현황 (Grid)' : view === 'dashboard' ? '통계 대시보드' : view === 'settings' ? '운영 설정' : view === 'guide' ? '사용 가이드' : view === 'spec' ? 'SQLite Orchestration Spec' : 'AI 컨시어지'}
+              {view === 'calendar' ? '월간 현황 (Timeline)' : view === 'grid-calendar' ? '월간 현황 (Grid)' : view === 'dashboard' ? '통계 대시보드' : view === 'settings' ? '운영 설정' : view === 'guide' ? '사용 가이드' : view === 'spec' ? 'SQLite Orchestration Spec' : '데이터 관리'}
             </h2>
             {(view === 'calendar' || view === 'grid-calendar' || view === 'dashboard') && (
               <div className="flex items-center gap-4">
@@ -249,7 +241,6 @@ const App: React.FC = () => {
           {view === 'calendar' && <GuesthouseCalendar rooms={rooms} bookings={bookings} startDate={selectedDate} onEditBooking={handleEditBooking} onQuickBook={(roomId, date) => handleAddBooking({ roomId, startDate: date.toISOString().split('T')[0] })} />}
           {view === 'grid-calendar' && <SimpleGridCalendar rooms={rooms} bookings={bookings} currentDate={selectedDate} />}
           {view === 'dashboard' && <DashboardStats bookings={bookings} rooms={rooms} selectedDate={selectedDate} onEditBooking={handleEditBooking} />}
-          {view === 'assistant' && <GeminiAssistant bookings={bookings} rooms={rooms} />}
           {view === 'spec' && <TechnicalSpec />}
           {view === 'settings' && <RoomSettings rooms={rooms} services={services} onAddRoom={handleAddRoom} onUpdateRoom={handleUpdateRoom} onDeleteRoom={handleDeleteRoom} onUpdateServices={handleUpdateServices} />}
           {view === 'guide' && <HelpGuide />}

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Room, Booking, BookingStatus, ServiceDefinition, BookedService, ServiceType } from '../types';
 import { X, Trash2, Save, Calendar, User, Phone, CreditCard, Plus, Minus, Coffee, Edit3, CalendarRange, Clock, UserPlus, CheckCircle2, UserCheck, LogOut, Hash } from 'lucide-react';
@@ -202,72 +201,76 @@ const BookingModal: React.FC<Props> = ({ isOpen, rooms, services, booking, onSav
   const selectedRoom = rooms.find(r => r.id === formData.roomId);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md overflow-y-auto">
-      <div className="bg-white rounded-[40px] w-full max-w-6xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] my-auto animate-in fade-in zoom-in-95 duration-300 overflow-hidden border border-slate-200">
-        <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50/30">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 md:p-4 bg-slate-900/70 backdrop-blur-md overflow-y-auto">
+      <div className="bg-white rounded-[32px] md:rounded-[40px] w-full max-w-6xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] my-auto animate-in fade-in zoom-in-95 duration-300 overflow-hidden border border-slate-200">
+        <div className="p-6 md:p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50/30">
           <div className="flex items-center gap-5">
-            <div className="w-14 h-14 bg-indigo-600 rounded-[22px] flex items-center justify-center text-white shadow-xl">
+            <div className="w-12 h-12 md:w-14 md:h-14 bg-indigo-600 rounded-[18px] md:rounded-[22px] flex items-center justify-center text-white shadow-xl">
+              {/* Fix: Removed invalid 'md:size' prop from Lucide component */}
               <Calendar size={32} strokeWidth={3} />
             </div>
             <div>
-              <h3 className="text-2xl font-black text-slate-800 tracking-tight">{formData.id && !isNaN(Number(formData.id)) ? '예약 상세 및 관리' : '새로운 게스트 등록'}</h3>
-              <p className="text-[11px] text-slate-400 font-black uppercase tracking-[0.3em] mt-1">상태: <span className="text-indigo-600 font-black">{formData.status}</span></p>
+              <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight">{formData.id && !isNaN(Number(formData.id)) ? '예약 상세 및 관리' : '새로운 게스트 등록'}</h3>
+              <p className="text-[10px] md:text-[11px] text-slate-400 font-black uppercase tracking-[0.3em] mt-1">상태: <span className="text-indigo-600 font-black">{formData.status}</span></p>
             </div>
           </div>
-          <button onClick={onClose} className="p-3 hover:bg-slate-200 rounded-2xl transition-all text-slate-400"><X size={32} /></button>
+          {/* Fix: Removed invalid 'md:size' prop from Lucide component */}
+          <button onClick={onClose} className="p-2 md:p-3 hover:bg-slate-200 rounded-2xl transition-all text-slate-400"><X size={32} /></button>
         </div>
 
-        <form onSubmit={(e) => { e.preventDefault(); onSave(formData as Booking); }} className="p-10 space-y-10 max-h-[85vh] overflow-y-auto scrollbar-thin">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <form onSubmit={(e) => { e.preventDefault(); onSave(formData as Booking); }} className="p-6 md:p-8 space-y-8 md:space-y-10 max-h-[85vh] overflow-y-auto scrollbar-thin">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
             <div className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest ml-1">게스트 성함</label>
-                <input required type="text" value={formData.guestName} onChange={e => handleFieldChange('guestName', e.target.value)} className="w-full px-6 py-4.5 bg-slate-50 border-2 border-slate-100 rounded-[20px] outline-none font-black text-lg focus:border-indigo-500 focus:bg-white transition-all shadow-sm" placeholder="성함을 입력하세요" />
+                <label className="text-sm font-black text-slate-400 uppercase tracking-widest ml-1">게스트 성함</label>
+                <input required type="text" value={formData.guestName} onChange={e => handleFieldChange('guestName', e.target.value)} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-[18px] outline-none font-black text-lg focus:border-indigo-500 focus:bg-white transition-all shadow-sm" placeholder="성함을 입력하세요" />
               </div>
               <div className="space-y-2">
-                <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest ml-1">숙박 인원 (최대 {selectedRoom?.capacity}인)</label>
-                <div className="flex items-center gap-3 bg-slate-50 border-2 border-slate-100 rounded-[20px] p-2 shadow-sm">
-                  <button type="button" onClick={() => handleFieldChange('guestCount', Math.max(1, (formData.guestCount || 1) - 1))} className="p-4 hover:bg-white rounded-xl transition-all text-slate-400 hover:text-indigo-600 shadow-sm"><Minus size={24} /></button>
+                <label className="text-sm font-black text-slate-400 uppercase tracking-widest ml-1">숙박 인원 (최대 {selectedRoom?.capacity}인)</label>
+                <div className="flex items-center gap-3 bg-slate-50 border-2 border-slate-100 rounded-[18px] p-2 shadow-sm">
+                  {/* Fix: Removed invalid 'md:size' prop from Lucide component */}
+                  <button type="button" onClick={() => handleFieldChange('guestCount', Math.max(1, (formData.guestCount || 1) - 1))} className="p-3 md:p-4 hover:bg-white rounded-xl transition-all text-slate-400 hover:text-indigo-600 shadow-sm"><Minus size={24} /></button>
                   <div className="flex-1 flex items-center justify-center gap-3 font-black text-2xl text-slate-800"><User size={24} className="text-indigo-600" /> {formData.guestCount}명</div>
-                  <button type="button" onClick={() => handleFieldChange('guestCount', Math.min(selectedRoom?.capacity || 10, (formData.guestCount || 1) + 1))} className="p-4 hover:bg-white rounded-xl transition-all text-slate-400 hover:text-indigo-600 shadow-sm"><Plus size={24} /></button>
+                  {/* Fix: Removed invalid 'md:size' prop from Lucide component */}
+                  <button type="button" onClick={() => handleFieldChange('guestCount', Math.min(selectedRoom?.capacity || 10, (formData.guestCount || 1) + 1))} className="p-3 md:p-4 hover:bg-white rounded-xl transition-all text-slate-400 hover:text-indigo-600 shadow-sm"><Plus size={24} /></button>
                 </div>
               </div>
             </div>
 
             <div className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest ml-1">객실 선택</label>
-                <select value={formData.roomId} onChange={e => handleFieldChange('roomId', e.target.value)} className="w-full px-6 py-4.5 bg-slate-50 border-2 border-slate-100 rounded-[20px] outline-none font-black text-lg focus:border-indigo-500 focus:bg-white transition-all shadow-sm">
+                <label className="text-sm font-black text-slate-400 uppercase tracking-widest ml-1">객실 선택</label>
+                <select value={formData.roomId} onChange={e => handleFieldChange('roomId', e.target.value)} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-[18px] outline-none font-black text-lg focus:border-indigo-500 focus:bg-white transition-all shadow-sm">
                   {rooms.map(room => <option key={room.id} value={room.id}>{room.name} (${room.price})</option>)}
                 </select>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest ml-1">체크인</label>
+                  <label className="text-sm font-black text-slate-400 uppercase tracking-widest ml-1">체크인</label>
                   <div className="relative group cursor-pointer" onClick={() => startInputRef.current?.showPicker()}>
-                    <input ref={startInputRef} required type="date" value={formData.startDate} onChange={e => handleFieldChange('startDate', e.target.value)} className="w-full pl-14 pr-4 py-4.5 bg-white border-2 border-slate-100 rounded-[20px] outline-none text-base font-black shadow-sm focus:border-indigo-500 transition-all" />
-                    <CalendarRange size={26} className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-700 bg-indigo-50 p-1.5 rounded-lg border border-indigo-100 shadow-sm group-hover:scale-110 transition-all" strokeWidth={3} />
+                    <input ref={startInputRef} required type="date" value={formData.startDate} onChange={e => handleFieldChange('startDate', e.target.value)} className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-100 rounded-[18px] outline-none text-base font-black shadow-sm focus:border-indigo-500 transition-all" />
+                    <CalendarRange size={24} className="absolute left-3 top-1/2 -translate-y-1/2 text-indigo-700 bg-indigo-50 p-1 rounded-lg border border-indigo-100 shadow-sm group-hover:scale-110 transition-all" strokeWidth={3} />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest ml-1">체크아웃</label>
+                  <label className="text-sm font-black text-slate-400 uppercase tracking-widest ml-1">체크아웃</label>
                   <div className="relative group cursor-pointer" onClick={() => endInputRef.current?.showPicker()}>
-                    <input ref={endInputRef} required type="date" value={formData.endDate} min={formData.startDate} onChange={e => handleFieldChange('endDate', e.target.value)} className="w-full pl-14 pr-4 py-4.5 bg-white border-2 border-slate-100 rounded-[20px] outline-none text-base font-black shadow-sm focus:border-indigo-500 transition-all" />
-                    <CalendarRange size={26} className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-700 bg-indigo-50 p-1.5 rounded-lg border border-indigo-100 shadow-sm group-hover:scale-110 transition-all" strokeWidth={3} />
+                    <input ref={endInputRef} required type="date" value={formData.endDate} min={formData.startDate} onChange={e => handleFieldChange('endDate', e.target.value)} className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-100 rounded-[18px] outline-none text-base font-black shadow-sm focus:border-indigo-500 transition-all" />
+                    <CalendarRange size={24} className="absolute left-3 top-1/2 -translate-y-1/2 text-indigo-700 bg-indigo-50 p-1 rounded-lg border border-indigo-100 shadow-sm group-hover:scale-110 transition-all" strokeWidth={3} />
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="space-y-6 pt-6 border-t border-slate-50">
-            <div className="flex items-center justify-between">
+          <div className="space-y-4 md:space-y-6 pt-6 border-t border-slate-50">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <h4 className="text-base font-black text-slate-800 uppercase tracking-[0.2em] flex items-center gap-3">
                 <Coffee size={24} className="text-indigo-600" /> 부가 서비스 설정
               </h4>
-              <div className="flex flex-wrap gap-3 justify-end max-w-2xl">
+              <div className="flex flex-wrap gap-2 md:gap-3 justify-start md:justify-end max-w-2xl">
                 {services.map(s => (
-                  <button key={s.id} type="button" onClick={() => addService(s.id)} className="px-5 py-2.5 bg-white text-indigo-700 border-2 border-indigo-100 rounded-xl text-xs font-black hover:bg-indigo-600 hover:text-white transition-all active:scale-95 shadow-sm">
+                  <button key={s.id} type="button" onClick={() => addService(s.id)} className="px-4 py-2 bg-white text-indigo-700 border-2 border-indigo-100 rounded-xl text-sm font-black hover:bg-indigo-600 hover:text-white transition-all active:scale-95 shadow-sm">
                     + {s.name} (${s.defaultPrice})
                   </button>
                 ))}
@@ -276,60 +279,60 @@ const BookingModal: React.FC<Props> = ({ isOpen, rooms, services, booking, onSav
 
             <div className="space-y-4">
               {(formData.bookedServices || []).length === 0 ? (
-                <div className="py-12 text-center border-4 border-dashed border-slate-100 rounded-[32px]">
-                  <p className="text-sm font-black text-slate-400">등록된 부가 서비스가 없습니다.</p>
+                <div className="py-10 text-center border-4 border-dashed border-slate-100 rounded-[28px]">
+                  <p className="text-base font-black text-slate-400">등록된 부가 서비스가 없습니다.</p>
                 </div>
               ) : (
                 (formData.bookedServices || []).map((bs) => (
-                  <div key={bs.id} className="bg-white rounded-[28px] border-2 border-slate-100 p-8 flex flex-col gap-6 animate-in fade-in slide-in-from-top-4 transition-all hover:border-indigo-200 shadow-sm hover:shadow-md">
+                  <div key={bs.id} className="bg-white rounded-[24px] border-2 border-slate-100 p-5 md:p-6 flex flex-col gap-5 animate-in fade-in slide-in-from-top-4 transition-all hover:border-indigo-200 shadow-sm hover:shadow-md">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="font-black text-slate-900 text-lg">{bs.name}</span>
-                        <span className="text-[11px] font-black text-slate-400 uppercase bg-slate-50 px-3 py-1 rounded-full border border-slate-200">
+                        <span className="font-black text-slate-900 text-xl">{bs.name}</span>
+                        <span className="text-xs font-black text-slate-400 uppercase bg-slate-50 px-3 py-1 rounded-full border border-slate-200">
                           {bs.name.includes('주말') ? '토요일 한정' : bs.name.includes('픽업') ? '1일 고정' : '기간 전체'}
                         </span>
                       </div>
                       <button type="button" onClick={() => handleFieldChange('bookedServices', formData.bookedServices!.filter(s => s.id !== bs.id))} className="p-2 text-slate-300 hover:text-rose-500 transition-colors"><Trash2 size={24} /></button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black text-slate-400 uppercase flex items-center gap-2"><Calendar size={14} /> 시작</label>
-                        <input type="date" value={bs.startDate} onChange={e => updateServiceDetail(bs.id, { startDate: e.target.value })} className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 text-xs font-black outline-none" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+                      <div className="space-y-1">
+                        <label className="text-xs font-black text-slate-500 uppercase flex items-center gap-2"><Calendar size={14} /> 시작 일자</label>
+                        <input type="date" value={bs.startDate} onChange={e => updateServiceDetail(bs.id, { startDate: e.target.value })} className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 text-base font-black outline-none h-[52px]" />
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black text-slate-400 uppercase flex items-center gap-2"><Calendar size={14} /> 종료</label>
-                        <input type="date" value={bs.endDate} min={bs.startDate} onChange={e => updateServiceDetail(bs.id, { endDate: e.target.value })} className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 text-xs font-black outline-none" />
+                      <div className="space-y-1">
+                        <label className="text-xs font-black text-slate-500 uppercase flex items-center gap-2"><Calendar size={14} /> 종료 일자</label>
+                        <input type="date" value={bs.endDate} min={bs.startDate} onChange={e => updateServiceDetail(bs.id, { endDate: e.target.value })} className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 text-base font-black outline-none h-[52px]" />
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black text-slate-400 uppercase flex items-center gap-2"><Hash size={14} /> 적용 일수</label>
-                        <div className="flex items-center gap-2 bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 h-[48px]">
-                          <button type="button" onClick={() => updateServiceDetail(bs.id, { days: Math.max(0, bs.days - 1) })} className="text-slate-400 hover:text-indigo-600"><Minus size={16} /></button>
-                          <input type="number" value={bs.days} onChange={e => updateServiceDetail(bs.id, { days: Number(e.target.value) })} className="text-sm font-black flex-1 text-center outline-none bg-transparent w-10" />
-                          <button type="button" onClick={() => updateServiceDetail(bs.id, { days: bs.days + 1 })} className="text-slate-400 hover:text-indigo-600"><Plus size={16} /></button>
+                      <div className="space-y-1">
+                        <label className="text-xs font-black text-slate-500 uppercase flex items-center gap-2"><Hash size={14} /> 적용 일수</label>
+                        <div className="flex items-center gap-2 bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 h-[52px]">
+                          <button type="button" onClick={() => updateServiceDetail(bs.id, { days: Math.max(0, bs.days - 1) })} className="text-slate-400 hover:text-indigo-600"><Minus size={18} /></button>
+                          <input type="number" value={bs.days} onChange={e => updateServiceDetail(bs.id, { days: Number(e.target.value) })} className="text-base font-black flex-1 text-center outline-none bg-transparent w-10" />
+                          <button type="button" onClick={() => updateServiceDetail(bs.id, { days: bs.days + 1 })} className="text-slate-400 hover:text-indigo-600"><Plus size={18} /></button>
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black text-slate-400 uppercase">단가 ($)</label>
-                        <input type="number" value={bs.basePrice} onChange={e => updateServiceDetail(bs.id, { basePrice: Number(e.target.value) })} className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 text-sm font-black outline-none text-indigo-600 h-[48px]" />
+                      <div className="space-y-1">
+                        <label className="text-xs font-black text-slate-500 uppercase">단가 ($)</label>
+                        <input type="number" value={bs.basePrice} onChange={e => updateServiceDetail(bs.id, { basePrice: Number(e.target.value) })} className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 text-base font-black outline-none text-indigo-600 h-[52px]" />
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black text-slate-400 uppercase">수량</label>
-                        <div className="flex items-center gap-2 bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 h-[48px]">
-                          <button type="button" onClick={() => updateServiceDetail(bs.id, { quantity: Math.max(1, bs.quantity - 1) })} className="text-slate-400 hover:text-indigo-600"><Minus size={16} /></button>
-                          <span className="text-sm font-black flex-1 text-center">{bs.quantity}</span>
-                          <button type="button" onClick={() => updateServiceDetail(bs.id, { quantity: bs.quantity + 1 })} className="text-slate-400 hover:text-indigo-600"><Plus size={16} /></button>
+                      <div className="space-y-1">
+                        <label className="text-xs font-black text-slate-500 uppercase">수량(명/개)</label>
+                        <div className="flex items-center gap-2 bg-slate-50 border-2 border-slate-100 rounded-xl px-3 py-3 h-[52px]">
+                          <button type="button" onClick={() => updateServiceDetail(bs.id, { quantity: Math.max(1, bs.quantity - 1) })} className="text-slate-400 hover:text-indigo-600"><Minus size={18} /></button>
+                          <span className="text-base font-black flex-1 text-center">{bs.quantity}</span>
+                          <button type="button" onClick={() => updateServiceDetail(bs.id, { quantity: bs.quantity + 1 })} className="text-slate-400 hover:text-indigo-600"><Plus size={18} /></button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-50 mt-2">
-                       <div className="text-xs font-black text-slate-500 italic">
-                         계산: <span className="text-indigo-600 font-black px-2">${bs.basePrice}</span> x <span>{bs.days}일</span> x <span>{bs.quantity}명</span>
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-50 mt-1">
+                       <div className="text-sm font-black text-slate-500 italic">
+                         계산 상세: <span className="text-indigo-600 font-black px-1">${bs.basePrice}</span> x <span>{bs.days}일</span> x <span>{bs.quantity}개</span>
                        </div>
                        <div className="text-right">
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">ITEM TOTAL</p>
-                          <p className="text-2xl font-black text-indigo-600 leading-none">$ {bs.price.toLocaleString()}</p>
+                          <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">ITEM TOTAL</p>
+                          <p className="text-3xl font-black text-indigo-600 leading-none">$ {bs.price.toLocaleString()}</p>
                         </div>
                     </div>
                   </div>
@@ -338,34 +341,35 @@ const BookingModal: React.FC<Props> = ({ isOpen, rooms, services, booking, onSav
             </div>
           </div>
 
-          <div className="bg-slate-900 rounded-[40px] p-10 text-white shadow-2xl relative overflow-hidden">
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
-              <div className="space-y-3">
-                <p className="text-[11px] font-black text-indigo-300 uppercase tracking-[0.4em]">GRAND TOTAL BILLING</p>
-                <h2 className="text-6xl font-black">$ {(formData.amount || 0).toLocaleString()}</h2>
+          <div className="bg-slate-900 rounded-[32px] md:rounded-[40px] p-6 md:p-10 text-white shadow-2xl relative overflow-hidden">
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
+              <div className="space-y-2 md:space-y-3">
+                <p className="text-[10px] md:text-[11px] font-black text-indigo-300 uppercase tracking-[0.4em]">GRAND TOTAL BILLING</p>
+                <h2 className="text-4xl md:text-6xl font-black">$ {(formData.amount || 0).toLocaleString()}</h2>
               </div>
-              <div className="flex gap-12 bg-white/5 p-8 rounded-[32px] backdrop-blur-sm border border-white/10">
-                <div className="text-right">
-                  <p className="text-[10px] text-slate-400 font-black uppercase mb-2">ROOM CHARGE</p>
-                  <p className="text-xl font-black text-indigo-100">$ {(calculateTotalAmount(formData.roomId!, formData.startDate!, formData.endDate!, formData.guestCount!, [], customExtraPrice)).toLocaleString()}</p>
+              <div className="flex gap-6 md:gap-12 bg-white/5 p-5 md:p-8 rounded-[24px] md:rounded-[32px] backdrop-blur-sm border border-white/10 w-full md:w-auto">
+                <div className="text-right flex-1 md:flex-none">
+                  <p className="text-[10px] text-slate-400 font-black uppercase mb-1 md:mb-2">ROOM CHARGE</p>
+                  <p className="text-lg md:text-xl font-black text-indigo-100">$ {(calculateTotalAmount(formData.roomId!, formData.startDate!, formData.endDate!, formData.guestCount!, [], customExtraPrice)).toLocaleString()}</p>
                 </div>
-                <div className="text-right">
-                  <p className="text-[10px] text-slate-400 font-black uppercase mb-2">SERVICE TOTAL</p>
-                  <p className="text-xl font-black text-indigo-100">$ {(formData.bookedServices || []).reduce((a, b) => a + b.price, 0).toLocaleString()}</p>
+                <div className="text-right flex-1 md:flex-none">
+                  <p className="text-[10px] text-slate-400 font-black uppercase mb-1 md:mb-2">SERVICE TOTAL</p>
+                  <p className="text-lg md:text-xl font-black text-indigo-100">$ {(formData.bookedServices || []).reduce((a, b) => a + b.price, 0).toLocaleString()}</p>
                 </div>
               </div>
             </div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full translate-x-1/2 -translate-y-1/2 blur-[100px]"></div>
           </div>
 
-          <div className="flex gap-6 pt-6 sticky bottom-0 bg-white/95 backdrop-blur-xl pb-6 z-20 border-t border-slate-100">
+          <div className="flex gap-4 md:gap-6 pt-6 sticky bottom-0 bg-white/95 backdrop-blur-xl pb-6 z-20 border-t border-slate-100">
             {formData.id && !isNaN(Number(formData.id)) && (
-              <button type="button" onClick={() => onDelete(formData.id!)} className="px-8 py-5 bg-rose-50 text-rose-600 rounded-[24px] font-black text-sm uppercase tracking-widest hover:bg-rose-100 transition-all border-2 border-rose-100">DELETE</button>
+              <button type="button" onClick={() => onDelete(formData.id!)} className="px-5 md:px-8 py-4 md:py-5 bg-rose-50 text-rose-600 rounded-[20px] md:rounded-[24px] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-rose-100 transition-all border-2 border-rose-100">DELETE</button>
             )}
             <div className="flex-1"></div>
-            <button type="button" onClick={onClose} className="px-10 py-5 bg-slate-100 text-slate-500 rounded-[24px] font-black text-sm uppercase tracking-widest hover:bg-slate-200 transition-all">CANCEL</button>
-            <button type="submit" className={`px-14 py-5 ${action.color} text-white rounded-[24px] font-black text-sm uppercase tracking-widest shadow-2xl flex items-center gap-3 active:scale-95 transition-all`}>
-              {action.icon} <span>{action.label}</span>
+            <button type="button" onClick={onClose} className="px-6 md:px-10 py-4 md:py-5 bg-slate-100 text-slate-500 rounded-[20px] md:rounded-[24px] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-slate-200 transition-all">CANCEL</button>
+            <button type="submit" className={`px-8 md:px-14 py-4 md:py-5 ${action.color} text-white rounded-[20px] md:rounded-[24px] font-black text-xs md:text-sm uppercase tracking-widest shadow-2xl flex items-center gap-2 md:gap-3 active:scale-95 transition-all`}>
+              {/* Fix: Added proper casting to React.ReactElement<any> to resolve TypeScript error in cloneElement */}
+              {React.cloneElement(action.icon as React.ReactElement<any>, { size: 20 })} <span>{action.label}</span>
             </button>
           </div>
         </form>

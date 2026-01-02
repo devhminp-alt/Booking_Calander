@@ -1,9 +1,6 @@
 {
   "name": "StaySync 게스트하우스 매니저",
-  "description": "5개 객실의 시각적 캘린더, 예약 관리 및 AI 기반 게스트 도우미를 갖춘 종합 게스트하우스 관리 시스템입니다.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone"
-  ],
-  "DATABASE_PATH": "C:/BormdalHouse/data/BormdalDB.sqlite"
+  "description": "5개 객실의 시각적 캘린더, 예약 관리 및 데이터 오케스트레이션을 갖춘 종합 게스트하우스 관리 시스템입니다.",
+  "DATABASE_PATH": "C:/BormdalHouse/data/BormdalDB.sqlite",
+  "requestFramePermissions": []
 }
