@@ -25,6 +25,7 @@ const GeminiAssistant: React.FC<Props> = ({ bookings, rooms }) => {
     setIsLoading(true);
 
     try {
+      // Corrected Initialization according to guidelines
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const context = `
         현재 게스트하우스 데이터:
@@ -34,13 +35,16 @@ const GeminiAssistant: React.FC<Props> = ({ bookings, rooms }) => {
         시스템 역할: 당신은 숙련된 게스트하우스 관리자입니다. 제공된 데이터를 바탕으로 사용자의 질문에 친절하고 전문적으로 답하세요. 답변은 간결하면서도 유용한 정보를 포함해야 하며, 한국어로 작성하세요.
       `;
 
+      // Corrected generateContent call according to guidelines
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `${context}\n\n사용자 질문: ${userMsg}`,
       });
 
+      // Using .text property directly (not as a function)
       setMessages(prev => [...prev, { role: 'ai', text: response.text || '죄송합니다. 답변을 생성할 수 없습니다.' }]);
     } catch (error) {
+      console.error('AI Error:', error);
       setMessages(prev => [...prev, { role: 'ai', text: 'AI 서비스 연결 중 오류가 발생했습니다.' }]);
     } finally {
       setIsLoading(false);

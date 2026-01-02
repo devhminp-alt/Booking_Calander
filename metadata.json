@@ -4,5 +4,6 @@
   "requestFramePermissions": [
     "camera",
     "microphone"
-  ]
+  ],
+  "DATABASE_PATH": "C:/BormdalHouse/data/BormdalDB.sqlite"
 }

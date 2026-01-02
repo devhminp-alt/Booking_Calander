@@ -24,16 +24,17 @@ export interface BookedService {
   endDate: string;
   price: number;
   basePrice: number; 
-  quantity: number; // 서비스 이용 인원/수량 추가
+  quantity: number; 
+  days: number; // Restored mandatory field
 }
 
 export interface Room {
   id: string;
   name: string;
   type: string;
-  capacity: number;      // 최대 인원
-  baseCapacity: number;  // 기준 인원 (추가 요금 발생 지점)
-  extraPersonPrice: number; // 1인당 추가 요금
+  capacity: number;      
+  baseCapacity: number;  
+  extraPersonPrice: number; 
   price: number;
   color: string;
   hasBathroom: boolean;
@@ -46,7 +47,7 @@ export interface Booking {
   id: string;
   roomId: string;
   guestName: string;
-  guestCount: number; // 숙박 인원수 추가
+  guestCount: number; 
   startDate: string; 
   endDate: string;   
   status: BookingStatus;
@@ -54,6 +55,7 @@ export interface Booking {
   notes?: string;
   amount: number;
   bookedServices: BookedService[];
+  invoiceId?: string; // Added to map to the SQLite Invoice relationship
 }
 
 export interface AIResponse {

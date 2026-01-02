@@ -17,12 +17,12 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
   const [hoveredRoomId, setHoveredRoomId] = useState<string | null>(null);
   
   const [roomForm, setRoomForm] = useState<Partial<Room>>({
-    name: '', type: '트윈', capacity: 2, baseCapacity: 1, extraPersonPrice: 15000, price: 70000, hasBathroom: true, description: '', building: '', roomNumber: '',
+    name: '', type: '트윈', capacity: 2, baseCapacity: 1, extraPersonPrice: 15.00, price: 70.00, hasBathroom: true, description: '', building: '', roomNumber: '',
     color: 'bg-blue-100 border-blue-300 text-blue-800'
   });
 
   const [serviceForm, setServiceForm] = useState<Partial<ServiceDefinition>>({
-    name: '', defaultPrice: 10000, type: 'custom'
+    name: '', defaultPrice: 10.00, type: 'custom'
   });
 
   const COLORS = [
@@ -48,7 +48,7 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
   };
 
   const resetRoomForm = () => {
-    setRoomForm({ name: '', type: '트윈', capacity: 2, baseCapacity: 1, extraPersonPrice: 15000, price: 70000, hasBathroom: true, description: '', building: '', roomNumber: '', color: 'bg-blue-100 border-blue-300 text-blue-800' });
+    setRoomForm({ name: '', type: '트윈', capacity: 2, baseCapacity: 1, extraPersonPrice: 15.00, price: 70.00, hasBathroom: true, description: '', building: '', roomNumber: '', color: 'bg-blue-100 border-blue-300 text-blue-800' });
     setEditingRoomId(null);
   };
 
@@ -60,7 +60,7 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
       id: `s-${Date.now()}`
     };
     onUpdateServices([...services, newService]);
-    setServiceForm({ name: '', defaultPrice: 10000, type: 'custom' });
+    setServiceForm({ name: '', defaultPrice: 10.00, type: 'custom' });
   };
 
   const handleDeleteService = (id: string) => {
@@ -78,7 +78,6 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
 
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* 객실 관리 섹션 */}
       <section className="space-y-6">
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
           <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
@@ -97,8 +96,8 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
               </select>
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">1박 요금 (₩)</label>
-              <input type="number" step="1000" value={roomForm.price} onChange={e => setRoomForm(p => ({ ...p, price: Number(e.target.value) }))} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-indigo-600" />
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">1박 요금 ($)</label>
+              <input type="number" step="1" value={roomForm.price} onChange={e => setRoomForm(p => ({ ...p, price: Number(e.target.value) }))} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-indigo-600" />
             </div>
             
             <div className="space-y-1">
@@ -118,10 +117,10 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">1인당 추가 요금 (₩)</label>
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">1인당 추가 요금 ($)</label>
               <div className="relative">
                 <UserPlus size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-indigo-400" />
-                <input type="number" step="1000" value={roomForm.extraPersonPrice} onChange={e => setRoomForm(p => ({ ...p, extraPersonPrice: Number(e.target.value) }))} className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-indigo-600" />
+                <input type="number" step="1" value={roomForm.extraPersonPrice} onChange={e => setRoomForm(p => ({ ...p, extraPersonPrice: Number(e.target.value) }))} className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-indigo-600" />
               </div>
             </div>
 
@@ -165,7 +164,7 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
                   <tr key={room.id} className="hover:bg-slate-50 group">
                     <td className="py-4 pl-4 font-bold text-slate-700">{room.name}</td>
                     <td className="py-4 text-sm text-slate-500">{room.baseCapacity}인 기준 / 최대 {room.capacity}인</td>
-                    <td className="py-4 font-bold text-indigo-600">₩{room.price.toLocaleString()}</td>
+                    <td className="py-4 font-bold text-indigo-600">$ {room.price.toLocaleString()}</td>
                     <td className="py-4 text-center">
                       <div className="flex justify-center gap-2">
                         <button onClick={() => { setRoomForm(room); setEditingRoomId(room.id); }} className="p-2 text-indigo-400 hover:text-indigo-600 transition-colors"><Edit2 size={16} /></button>
@@ -180,7 +179,6 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
         </div>
       </section>
 
-      {/* 부가 서비스 관리 섹션 */}
       <section className="space-y-6">
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
           <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
@@ -193,8 +191,8 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
               <input required type="text" value={serviceForm.name} onChange={e => setServiceForm(p => ({ ...p, name: e.target.value }))} placeholder="예: 바베큐 그릴" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none" />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500 uppercase">기본 요금</label>
-              <input type="number" step="1000" value={serviceForm.defaultPrice} onChange={e => setServiceForm(p => ({ ...p, defaultPrice: Number(e.target.value) }))} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none" />
+              <label className="text-xs font-bold text-slate-500 uppercase">기본 요금 ($)</label>
+              <input type="number" step="1" value={serviceForm.defaultPrice} onChange={e => setServiceForm(p => ({ ...p, defaultPrice: Number(e.target.value) }))} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none" />
             </div>
             <div className="space-y-1">
               <label className="text-xs font-bold text-slate-500 uppercase">분류</label>
@@ -220,7 +218,7 @@ const RoomSettings: React.FC<Props> = ({ rooms, services, onAddRoom, onUpdateRoo
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-800">{service.name}</h4>
-                  <p className="text-xs text-slate-500">기본 ₩{service.defaultPrice.toLocaleString()}</p>
+                  <p className="text-xs text-slate-500">기본 $ {service.defaultPrice.toLocaleString()}</p>
                 </div>
               </div>
               <button onClick={() => handleDeleteService(service.id)} className="p-2 text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all">
